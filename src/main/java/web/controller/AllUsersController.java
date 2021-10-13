@@ -30,9 +30,9 @@ public class AllUsersController {
 //        return "redirect:cars?count=-1";
         List<User> users = service.getUsers();
         model.addAttribute("users", users);
-        model.addAttribute("user", new User());
+ //       model.addAttribute("user", new User());
 
-        model.addAttribute("input2", "one tnwo thhhhhreee");
+        model.addAttribute("result001", "result001");
         return "index";
     }
 

@@ -46,6 +46,11 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void configureViewResolvers(ViewResolverRegistry registry) {
         ThymeleafViewResolver resolver = new ThymeleafViewResolver();
+        // <VL 20211013-21:15>
+        resolver.setCharacterEncoding("UTF-8"); // vl added
+        resolver.setContentType("text/html; charset=UTF-8"); // vl added
+
+        // </VL 20211013-21:15>
         resolver.setTemplateEngine(templateEngine());
         registry.viewResolver(resolver);
     }
