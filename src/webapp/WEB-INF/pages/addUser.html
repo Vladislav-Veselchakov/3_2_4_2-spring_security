@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ru-RU">
+<head>
+<!--    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />-->
+    <meta charset="UTF-8">
+    <link th:href="@{/styles/main.css}" rel="stylesheet" />
+
+    <title>Add user</title>
+</head>
+<body>
+
+<form action="#" th:action="@{/addUser}" method="post" accept-charset="UTF-8" th:object="${user}">
+
+    <label for="fn">First name: </label>
+    <input type="text" id="fn"  th:field = "*{firstName}" th:value="*{firstName}" >���� </input><br/>
+    <label for="ln">Last name: </label>
+    <input type="text" id="ln"  th:field = "*{lastName}"  value="������">������ </input><br/>
+    <label for="em">E-mail: </label>
+    <input type="text" id="em"  th:field = "*{email}"   value="������" >������ </input><br/>
+
+    <input type="submit" value="Add user"/>
+</form>
+
+</body>
+</html>
