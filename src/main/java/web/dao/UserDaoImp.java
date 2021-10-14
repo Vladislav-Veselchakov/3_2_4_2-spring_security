@@ -63,6 +63,11 @@ public class UserDaoImp implements UserDao {
 //        List<User> users = query.setParameter("username", username)
 //                .setParameter("number", number)
 //                .getResultList();
+
+//        Query jpqlQuery = getEntityManager().createQuery("SELECT u FROM UserEntity u WHERE u.id=:id");
+//        jpqlQuery.setParameter("id", id);
+//        return (UserEntity) jpqlQuery.getSingleResult();
+
         return user;
     }
 
