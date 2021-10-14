@@ -30,6 +30,7 @@ public class EditController {
         request.setCharacterEncoding("UTF-8");
 
         User user = service.getUserById(id);
+        // user.roles.iterator().next().getAuthority()
         model.addAttribute("user", user);
         return "editUser";
     }

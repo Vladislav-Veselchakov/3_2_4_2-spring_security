@@ -6,9 +6,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import web.model.Role;
 import web.model.User;
+import web.model.User_role;
 import web.service.RoleService;
 import web.service.UserService;
 
+import javax.persistence.*;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -17,6 +19,10 @@ import java.util.List;
 
 @Controller
 public class AllUsersController {
+    @PersistenceContext
+    EntityManager entityManager;
+
+
 
     private UserService service;
     private RoleService roleService;
@@ -38,6 +44,13 @@ public class AllUsersController {
         model.addAttribute("roles", roles);
 
         model.addAttribute("result001", "result001");
+
+
+        List<User_role> userRole = (List<User_role>) entityManager.createNativeQuery( "SELECT user_id, role_id FROM user_role").getResultList();
+        // results.get(0)[0]
+        int a = 1;
+        model.addAttribute("userRole", userRole);
+
         return "index";
     }
 

@@ -49,7 +49,7 @@
     </tr>
     <tr th:each = "role : ${roles}">
         <td th:utext = "${role.id}"> </td>
-        <td th:utext = "${role.role}"> </td>
+        <td th:utext = "${role.name}"> </td>
         <td>
             <a th:href="@{/editRole(id=${role.id})}">edit</a>
             <a th:href="@{/deleteRole(id=${role.id})}">delete</a>
@@ -67,8 +67,8 @@
         <th>Role_id</th>
     </tr>
     <tr th:each = "ur : ${userRole}">
-        <td th:utext = "${ur.User_id}"> </td>
-        <td th:utext = "${ur.Role_id}"> </td>
+        <td th:utext = "${ur[0]}"> </td>
+        <td th:utext = "${ur[1]}"> </td>
 <!--
         <td>
             <a th:href="@{/editRole11(id=${ur.User_id})}">edit</a>

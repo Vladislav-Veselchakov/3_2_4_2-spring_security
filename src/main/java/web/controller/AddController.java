@@ -56,7 +56,7 @@ public class AddController {
         DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
         user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
 
-        Set<Role> roles = Set.of(new Role("role_01"), new Role("role_02"));
+        Set<Role> roles = Set.of(new Role("ROLE_ADMIN"));
         user.setRoles(roles);
         service.add(user);
 
