@@ -1,0 +1,23 @@
+-- So, it want to made VL:
+create table User_Role
+(
+    User_id     bigint NOT NULL,
+    Role_id     bigint NOT NULL,
+    primary key (User_id, Role_id),
+    foreign key (User_id) references users(id),
+    foreign key (Role_id) references Roles(id)
+);
+-- ===================================
+-- It made Idea:
+create table if not exists user_role
+(
+	User_id bigint not null,
+	Role_id bigint not null,
+	primary key (User_id, Role_id)
+)
+engine=MyISAM;
+
+create index FKaee9w0rfu8gpac5ak5a8lm45b
+	on user_role (Role_id);
+-- =========================================
+

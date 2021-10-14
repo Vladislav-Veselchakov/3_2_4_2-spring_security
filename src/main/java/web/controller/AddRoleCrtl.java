@@ -5,42 +5,38 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import web.model.Role;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
-import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.GregorianCalendar;
-import java.util.HashSet;
-import java.util.Set;
 
 @Controller
-public class AddController {
-    private UserService service;
-    public AddController(UserService service) {
+public class AddRoleCrtl {
+
+
+    private RoleService service;
+    public AddRoleCrtl(RoleService service) {
         this.service = service;
     }
 
-    @GetMapping(value = "/addUser",  produces = {"application/xml; charset=UTF-8"})
-    String addPage(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
+    @GetMapping(value = "/addRole",  produces = {"application/xml; charset=UTF-8"})
+    String addRolePage(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-        User usr = new User();
-        usr.setFirstName("семь из сет");
-        model.addAttribute("user", usr);
-        return "addUser";
+        Role role = new Role();
+        model.addAttribute("role", role);
+        return "addRole";
     }
 
-    @PostMapping(value = "/addUser",  produces = {"application/xml; charset=UTF-8"})
-    public String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException  {
+    @PostMapping(value = "/addRole",  produces = {"application/xml; charset=UTF-8"})
+    public String addRole(@ModelAttribute("role") Role role, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException  {
         response.setContentType("text/html;charset=UTF-8");
 
         response.setCharacterEncoding("UTF-8");
@@ -53,14 +49,12 @@ public class AddController {
 //        user.setLastName(uLast);
 //        user.setEmail(uMail);
 
-        DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
-        user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
-
-        Set<Role> roles = Set.of(new Role("role_01"), new Role("role_02"));
-        user.setRoles(roles);
-        service.add(user);
+        service.add(role);
 
         return "redirect:/";
     }
+
+
+
 
 }

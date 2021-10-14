@@ -4,7 +4,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import web.model.Role;
 import web.model.User;
+import web.service.RoleService;
 import web.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,9 +19,11 @@ import java.util.List;
 public class AllUsersController {
 
     private UserService service;
+    private RoleService roleService;
 
-    public AllUsersController(UserService service) {
+    public AllUsersController(UserService service, RoleService roleService) {
         this.service = service;
+        this.roleService = roleService;
     }
 
     @GetMapping(value = "/")
@@ -30,7 +34,8 @@ public class AllUsersController {
 //        return "redirect:cars?count=-1";
         List<User> users = service.getUsers();
         model.addAttribute("users", users);
- //       model.addAttribute("user", new User());
+        List<Role> roles = roleService.getRoles();
+        model.addAttribute("roles", roles);
 
         model.addAttribute("result001", "result001");
         return "index";
