@@ -51,7 +51,7 @@ public class EditController {
 
         DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
         user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
-        Set<Role> roles = user.getRoles();
+        Set<Role> roles = service.getUserById(user.getId()).getRoles();
         roles.add(new Role(role));
         user.setRoles(roles);
 
