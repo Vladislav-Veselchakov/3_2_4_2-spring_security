@@ -22,12 +22,12 @@ public class DeleteUserController {
         this.service = service;
     }
 
-    @GetMapping(value = "/delete")
+    @GetMapping(value = "/admin/delete")
     public String DeleteUser(@RequestParam Long id, RedirectAttributes attr, ModelMap model) {
         service.deleteUser(id);
         DateFormat df = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         attr.addFlashAttribute("result001", "User deleted at " + df.format((new GregorianCalendar()).getTime()));
-        return "redirect:/";
+        return "redirect:/admin";
     }
 }
 

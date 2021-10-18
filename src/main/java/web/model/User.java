@@ -2,6 +2,7 @@ package web.model;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
@@ -129,6 +130,7 @@ public class User implements UserDetails {
         this.password = password;
     }
 
+    @Transactional
     public Set<Role> getRoles() {
         return roles;
     }

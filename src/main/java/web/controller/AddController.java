@@ -28,7 +28,7 @@ public class AddController {
         this.service = service;
     }
 
-    @GetMapping(value = "/addUser",  produces = {"application/xml; charset=UTF-8"})
+    @GetMapping(value = "/admin/addUser",  produces = {"application/xml; charset=UTF-8"})
     String addPage(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
@@ -39,7 +39,7 @@ public class AddController {
         return "addUser";
     }
 
-    @PostMapping(value = "/addUser",  produces = {"application/xml; charset=UTF-8"})
+    @PostMapping(value = "/admin/addUser",  produces = {"application/xml; charset=UTF-8"})
     public String addUser(@ModelAttribute("user") User user, ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException  {
         response.setContentType("text/html;charset=UTF-8");
 
@@ -55,12 +55,11 @@ public class AddController {
 
         DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
         user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
+        // from editUser:   user.setRoles(Set.of(new Role(role)));
 
-        Set<Role> roles = Set.of(new Role("ROLE_ADMIN"));
-        user.setRoles(roles);
         service.add(user);
 
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 }

@@ -4,6 +4,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import web.model.Role;
 import web.model.User;
 import web.model.User_role;
@@ -18,49 +19,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
+@RequestMapping(value = "/")
 public class AllUsersController {
-    @PersistenceContext
-    EntityManager entityManager;
 
-
-
-    private UserService service;
-    private RoleService roleService;
-
-    public AllUsersController(UserService service, RoleService roleService) {
-        this.service = service;
-        this.roleService = roleService;
-    }
-
-    @GetMapping(value = "/")
+    @GetMapping(value = "")
     public String getUsers(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
-
-//        return "redirect:cars?count=-1";
-        List<User> users = service.getUsers();
-        model.addAttribute("users", users);
-        List<Role> roles = roleService.getRoles();
-        model.addAttribute("roles", roles);
-
-        model.addAttribute("result001", "result001");
-
-
-        List<User_role> userRole = (List<User_role>) entityManager.createNativeQuery( "SELECT user_id, role_id FROM user_role").getResultList();
-        // results.get(0)[0]
-        int a = 1;
-        model.addAttribute("userRole", userRole);
-
-        return "index";
+        //return "redirect:admin";
+       return "index";
     }
 
+    @RequestMapping(value = "hello", method = RequestMethod.GET)
+    public String printWelcome(ModelMap model) {
+        List<String> messages = new ArrayList<>();
+        messages.add("Hello!");
+        messages.add("I'm Spring MVC-SECURITY application");
+        messages.add("5.2.0 version by sep'19 ");
+        model.addAttribute("messages", messages);
+        return "hello";
+    }
 
-
-// url: http://localhost:8080/manager/html
-//	Но перед этим пришлось в файле tomcat-users.xml вписать:
-//<role rolename="manager-gui"/>
-//<user username="tomcat" password="s3cret" roles="manager-gui"/>
-// on site
-// https://helpcontext.ru/questions/25999/intellij-tomcat-pokazyvaet-404-pri-zapuske
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String loginPage() {
+        return "login";
+    }
 
 }

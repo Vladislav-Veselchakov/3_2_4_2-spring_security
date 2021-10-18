@@ -8,7 +8,7 @@
 </head>
 <body>
 
-<form action="#" th:action="@{/editUser}" method="post" th:object="${user}">
+<form action="#" th:action="@{/admin/editUser}" method="post" th:object="${user}">
 
 <!--    <input type="hidden" name="id" th:field = "*id"/> <br/>-->
     <input type="hidden" name="id" th:field = "*{id}"/> <br/>
@@ -21,8 +21,16 @@
     <input type="text" id="em"  th:field = "*{email}"/> <br/>
     <label for="pas">Password</label>
     <input type="text" id="pas"  th:field = "*{password}"   value="password" > </input><br/>
+    <label>Enter a role to save:</label>
+    <input type="text" value="role_01" name="role" > </input><br/>
 
     <input type="submit" value="save"/>
+</form>
+
+<br>
+<br/>
+<form action="#" th:action="@{/logout}" method="get">
+    <input type="submit" value="logout"/>
 </form>
 
 

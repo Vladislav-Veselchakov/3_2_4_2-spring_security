@@ -2,10 +2,8 @@ package web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
+import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
@@ -16,8 +14,10 @@ import java.nio.charset.StandardCharsets;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.Set;
 
 @Controller
+@RequestMapping("/admin")
 public class EditController {
     private UserService service;
     public EditController(UserService service) {
@@ -32,11 +32,12 @@ public class EditController {
         User user = service.getUserById(id);
         // user.roles.iterator().next().getAuthority()
         model.addAttribute("user", user);
+
         return "editUser";
     }
 
     @PostMapping(value = "/editUser")
-    String editUser(@ModelAttribute("user") User user, ModelMap model, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    String editUser(@ModelAttribute("user") User user, ModelMap model, @ModelAttribute("role") String role, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
@@ -47,11 +48,15 @@ public class EditController {
 //        user.setLastName(uLast);
 //        user.setEmail(uMail);
 
+
         DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
         user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
+        Set<Role> roles = user.getRoles();
+        roles.add(new Role(role));
+        user.setRoles(roles);
 
         service.update(user);
-        return "redirect:/";
+        return "redirect:/admin";
     }
 
 }
