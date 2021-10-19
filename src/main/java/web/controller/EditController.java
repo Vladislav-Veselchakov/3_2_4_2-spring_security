@@ -7,6 +7,8 @@ import web.model.Role;
 import web.model.User;
 import web.service.UserService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.UnsupportedEncodingException;
@@ -19,6 +21,9 @@ import java.util.Set;
 @Controller
 @RequestMapping("/admin")
 public class EditController {
+    @PersistenceContext
+    EntityManager entityManager;
+
     private UserService service;
     public EditController(UserService service) {
         this.service = service;
@@ -37,7 +42,7 @@ public class EditController {
     }
 
     @PostMapping(value = "/editUser")
-    String editUser(@ModelAttribute("user") User user, ModelMap model, @ModelAttribute("role") String role, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
+    String editUser(@ModelAttribute("user") User user, ModelMap model, @ModelAttribute("roleName") String roleName, HttpServletRequest request, HttpServletResponse response) throws UnsupportedEncodingException {
         response.setCharacterEncoding("UTF-8");
         request.setCharacterEncoding("UTF-8");
 
@@ -49,10 +54,12 @@ public class EditController {
 //        user.setEmail(uMail);
 
 
+        Role role = entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :roleName", Role.class).setParameter("roleName", roleName).getSingleResult();
+
         DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
         user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
         Set<Role> roles = service.getUserById(user.getId()).getRoles();
-        roles.add(new Role(role));
+        roles.add(role);
         user.setRoles(roles);
 
         service.update(user);

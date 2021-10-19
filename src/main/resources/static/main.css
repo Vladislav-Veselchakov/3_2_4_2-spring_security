@@ -14,3 +14,11 @@ a.edit {
 a.delete {
     margin: 10px;
 }
+
+#roles {
+    float:left;
+}
+#user_role {
+    float: left;
+    margin-left: 30px;
+}

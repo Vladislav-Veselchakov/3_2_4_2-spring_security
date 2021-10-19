@@ -26,7 +26,7 @@ public class UserController {
 	public String UserPage(Authentication auth, ModelMap model) {
 		User user = (User) auth.getPrincipal();
 		List<String> messages = new ArrayList<>();
-		messages.add(String.format("Hello 11122223334444 user %s!", user.getFirstName()));
+		messages.add(String.format("Hello user \"%s!\"", user.getFirstName()));
 		messages.add("Your id: " + user.getId());
 		messages.add("First name: " + user.getFirstName());
 		messages.add("Last name: " + user.getLastName());
