@@ -5,16 +5,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import web.model.Role;
-import web.model.User;
-import web.model.User_role;
-import web.service.RoleService;
-import web.service.UserService;
-
-import javax.persistence.*;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,10 +13,7 @@ import java.util.List;
 public class AllUsersController {
 
     @GetMapping(value = "")
-    public String getUsers(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-        //return "redirect:admin";
+    public String getUsers(ModelMap model) {
        return "index";
     }
 
@@ -39,10 +26,8 @@ public class AllUsersController {
         model.addAttribute("messages", messages);
         return "hello";
     }
-
     @RequestMapping(value = "login", method = RequestMethod.GET)
     public String loginPage() {
         return "login";
     }
-
 }

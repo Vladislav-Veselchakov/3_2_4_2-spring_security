@@ -20,15 +20,15 @@ public class DeleteRoleCtrl {
     @PersistenceContext
     EntityManager entityManager;
 
-    private RoleService service;
+    private RoleService roleService;
 
     public DeleteRoleCtrl(RoleService service) {
-        this.service = service;
+        this.roleService = service;
     }
     @GetMapping(value = "/admin/deleteRole")
     @Transactional
     public String deleteRole(@RequestParam long id, RedirectAttributes attr, ModelMap model) {
-        service.deleteRole(id);
+        roleService.deleteRole(id);
         Query qry = entityManager.createNativeQuery("DELETE FROM user_role WHERE Role_id = :id");
         qry.setParameter("id", id);
         qry.executeUpdate();

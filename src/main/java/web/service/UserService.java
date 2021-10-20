@@ -1,8 +1,10 @@
 package web.service;
 
+import web.model.Role;
 import web.model.User;
 
 import java.util.List;
+import java.util.Set;
 
 public interface UserService {
     void add(User user);
@@ -10,4 +12,5 @@ public interface UserService {
     List<User> getUsers();
     public void deleteUser(Long id);
     User getUserById(Long id);
+    Set<Role> getRoles(Long id);
 }

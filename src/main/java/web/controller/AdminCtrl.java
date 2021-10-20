@@ -21,32 +21,24 @@ public class AdminCtrl {
     @PersistenceContext
     EntityManager entityManager;
 
-    private UserService service;
+    private UserService userService;
     private RoleService roleService;
 
     public AdminCtrl(UserService service, RoleService roleService) {
-        this.service = service;
+        this.userService = service;
         this.roleService = roleService;
     }
 
     @GetMapping(value = "/admin")
-    public String getUsers(ModelMap model, HttpServletResponse response, HttpServletRequest request) throws UnsupportedEncodingException {
-        response.setCharacterEncoding("UTF-8");
-        request.setCharacterEncoding("UTF-8");
-
-//        return "redirect:cars?count=-1";
-        List<User> users = service.getUsers();
+    public String getUsers(ModelMap model) {
+        List<User> users = userService.getUsers();
         model.addAttribute("users", users);
         List<Role> roles = roleService.getRoles();
         model.addAttribute("roles", roles);
-
         model.addAttribute("result001", "result001");
 
-
         List<User_role> userRole = (List<User_role>) entityManager.createNativeQuery( "SELECT user_id, role_id FROM user_role").getResultList();
-        // results.get(0)[0]
         model.addAttribute("userRole", userRole);
-
         return "admin";
     }
 

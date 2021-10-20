@@ -6,7 +6,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -35,7 +34,9 @@ public class User implements UserDetails {
     @ManyToMany(cascade = {
             CascadeType.PERSIST,
             CascadeType.MERGE
-    }, fetch = FetchType.EAGER)
+    }
+    // , fetch = FetchType.EAGER
+            )
     @JoinTable(name = "User_Role",
             joinColumns = @JoinColumn(name = "User_id"),
             inverseJoinColumns = @JoinColumn(name = "Role_id")
@@ -139,6 +140,16 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
+    @Override
+    public int hashCode() {
+        return 11 * firstName.hashCode() + lastName.hashCode() + email.hashCode();
+    }
 
-
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        User user  = (User) o;
+        return firstName.equals(user.getFirstName()) && lastName.equals(user.getLastName()) && email.equals(user.getEmail());
+    }
 }
