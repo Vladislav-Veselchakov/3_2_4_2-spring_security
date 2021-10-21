@@ -9,12 +9,10 @@ import web.service.UserService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.UnsupportedEncodingException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.GregorianCalendar;
+import java.util.List;
 import java.util.Set;
 
 @Controller
@@ -44,15 +42,9 @@ public class EditController {
 //        user.setFirstName(uFirst);
 //        user.setLastName(uLast);
 //        user.setEmail(uMail);
-        Role role = entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :roleName", Role.class).setParameter("roleName", roleName).getSingleResult();
 
-        DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
-        user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
-        User user1 = userService.getUserById(user.getId());
-        Set<Role> roles = userService.getRoles(user.getId());
-        roles.add(role);
-        user.setRoles(roles);
-
+        userService.setRoleByName(user, roleName);
+        userService.setModified(user, new GregorianCalendar().getTime());
         userService.update(user);
         return "redirect:/admin";
     }

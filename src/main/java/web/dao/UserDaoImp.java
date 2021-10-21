@@ -1,17 +1,23 @@
 package web.dao;
 
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 import web.model.Role;
 import web.model.User;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
-import javax.persistence.TypedQuery;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 @Repository
 public class UserDaoImp implements UserDao {
+    @Override
+    public void setModified(User user, Date modified) {
+        DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
+        user.setModified(df.format(modified).toString());
+    }
 
     @PersistenceContext
     private EntityManager entityManager;
@@ -56,4 +62,16 @@ public class UserDaoImp implements UserDao {
 
     }
 
+    @Override
+    public void setRoleByName(User user, String roleName) {
+       // User user1 = getUserById(user.getId());
+        Set<Role> roles = getRoles(user.getId());
+        List<Role> lstRole = entityManager.createQuery("SELECT r FROM Role r WHERE r.name = :roleName", Role.class).setParameter("roleName", roleName).getResultList();
+        if (lstRole.size() > 0) {
+            roles.add(lstRole.get(0));
+        } else {
+            roles.add(new Role(roleName));
+        }
+        user.setRoles(roles);
+    }
 }

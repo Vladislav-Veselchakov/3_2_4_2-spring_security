@@ -5,6 +5,8 @@ import org.springframework.transaction.annotation.Transactional;
 import web.dao.UserDao;
 import web.model.Role;
 import web.model.User;
+
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -51,5 +53,15 @@ public class UserServiceImp implements UserService {
     @Transactional
     public Set<Role> getRoles(Long id) {
       return userDao.getRoles(id);
+    }
+
+    @Override
+    public void setModified(User user, Date modified) {
+        userDao.setModified(user, modified);
+    }
+
+    @Override
+    public void setRoleByName(User user, String roleName) {
+        userDao.setRoleByName(user, roleName);
     }
 }

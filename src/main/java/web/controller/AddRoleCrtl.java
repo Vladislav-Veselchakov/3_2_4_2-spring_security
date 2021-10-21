@@ -18,16 +18,16 @@ public class AddRoleCrtl {
         this.roleService = service;
     }
 
-    @GetMapping(value = "/addRole",  produces = {"application/xml; charset=UTF-8"})
+    @GetMapping(value = "/addRole")
     String addRolePage(ModelMap model) {
         Role role = new Role();
         model.addAttribute("role", role);
         return "addRole";
     }
 
-    @PostMapping(value = "/addRole",  produces = {"application/xml; charset=UTF-8"})
-    public String addRole(@ModelAttribute("role") Role role, ModelMap model)  {
-        roleService.add(role);
+    @PostMapping(value = "/addRole")
+    public String addRole(@ModelAttribute("name") String name, ModelMap model)  {
+        roleService.add(new Role(name));
         return "redirect:/";
     }
 

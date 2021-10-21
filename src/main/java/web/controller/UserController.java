@@ -30,7 +30,7 @@ public class UserController {
 		messages.add("First name: " + user.getFirstName());
 		messages.add("Last name: " + user.getLastName());
 		messages.add("E-mail: " + user.getEmail());
-		messages.add("Added/updated: " + user.getTimeOfAdd());
+		messages.add("Added/updated: " + user.getModified());
 		StringBuilder sb = new StringBuilder();
 		for (Role role: user.getRoles()) {
 			sb.append(role.getName()).append(", ");

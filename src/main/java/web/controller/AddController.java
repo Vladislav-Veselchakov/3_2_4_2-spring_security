@@ -33,8 +33,7 @@ public class AddController {
     @PostMapping(value = "/admin/addUser",  produces = {"application/xml; charset=UTF-8"})
     public String addUser(@ModelAttribute("user") User user, ModelMap model) {
 
-        DateFormat df = new SimpleDateFormat("HH:mm:ss dd-MM-YYYY");
-        user.setTimeOfAdd(df.format((new GregorianCalendar()).getTime()));
+        userService.setModified(user, new GregorianCalendar().getTime());
         userService.add(user);
         return "redirect:/admin";
     }

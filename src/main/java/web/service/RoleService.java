@@ -10,5 +10,4 @@ public interface RoleService {
     List<Role> getRoles();
     public void deleteRole(Long id);
     Role getRoleById(Long id);
-
 }

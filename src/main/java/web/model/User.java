@@ -26,7 +26,7 @@ public class User implements UserDetails {
     private String email;
 
     @Column
-    String timeOfAdd;
+    String modified;
 
     @Column
     private String password;
@@ -84,12 +84,12 @@ public class User implements UserDetails {
         this.email = email;
     }
 
-    public String getTimeOfAdd() {
-        return timeOfAdd;
+    public String getModified() {
+        return modified;
     }
 
-    public void setTimeOfAdd(String timeOfAdd) {
-        this.timeOfAdd = timeOfAdd;
+    public void setModified(String modified) {
+        this.modified = modified;
     }
 
     @Override
